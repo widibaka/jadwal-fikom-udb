@@ -1,1 +1,0 @@
-<?php echo $website['syarat_ketentuan']; ?>
