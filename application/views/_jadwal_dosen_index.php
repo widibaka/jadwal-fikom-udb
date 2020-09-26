@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=0.8, shrink-to-fit=no">
     <meta name="description" content="Jadwal yang enggak bikin mata pedih">
     <meta name="author" content="widibaka">
-    <link rel="icon" href="<?= base_url("assets/_jadwal/Offcanvas_files/icon.png?ver1.1") ?>">
+    <link rel="icon" href="<?= base_url('assets/_jadwal/Offcanvas_files/'.$icon) ?>">
     <!-- S:fb meta -->
     <meta property="og:type" content="software" />
-    <meta property="og:image" content="<?= base_url("assets/_jadwal/Offcanvas_files/icon.png?ver1.1") ?>" />
-    <meta property="og:title" content="Jadwal TI UDB" />
+    <meta property="og:image" content="<?= base_url('assets/_jadwal/Offcanvas_files/'.$icon) ?>" />
+    <meta property="og:title" content="<?php echo $title ?>" />
     <meta property="og:description" content="Jadwal yang enggak bikin mata pedih">
     <meta property="og:url" content="<?= base_url() ?>" />
     <meta property="og:site_name" content="Koreksoft" />
@@ -69,7 +69,13 @@
       <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#" data-toggle="offcanvas">Pilih kelas dulu!</a>
+            <a class="nav-link" href="<?php echo base_url('jadwal/') ?>">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-toggle="offcanvas">Pilih dosen dulu!</a>
+          </li>
+          <li class="nav-item">
+            
           </li>
         </ul>
       </div>
@@ -82,10 +88,10 @@
 
     <main role="main" class="container">
       <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-z2 rounded box-shadow">
-        <img class="mr-3" src="<?= base_url('assets/_jadwal') ?>/Offcanvas_files/icon.png" alt="" width="48" height="48">
+        <img class="mr-3" src="<?= base_url('assets/_jadwal/Offcanvas_files/'.$icon) ?>" alt="" width="48" height="48">
         <div class="lh-100">
           <h6 class="mb-0 text-white lh-100">Pilih nama dosen</h6>
-          <small>02</small>
+          <small></small>
         </div>
       </div>
 
@@ -102,7 +108,7 @@
             
             <a class="mb-2" href="<?php echo base_url('jadwal/dosen/') . str_replace('/', 'garis_miring', base64_encode($value)) ?>"><li class="font-weight-bold text-center btn btn-primary" style="width: 100%"><?php echo $value ?></li></a>
 
-          <?php endforeach ?>            
+          <?php endforeach ?>
         </ul>
 
 
@@ -113,11 +119,11 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="<?= base_url('assets/_jadwal') ?>/Offcanvas_files/holder.min.js.download"></script>
-    <script src="<?= base_url('assets/_jadwal') ?>/Offcanvas_files/offcanvas.js.download"></script>
+    <script src="<?= base_url('assets/') ?>_jadwal/Offcanvas_files/jquery-3.5.1.min.js"></script>
+    <script src="<?= base_url('assets/_jadwal') ?>/Offcanvas_files/popper.min.js"></script>
+    <script src="<?= base_url('assets/_jadwal') ?>/Offcanvas_files/bootstrap.min.js"></script>
+    <script src="<?= base_url('assets/_jadwal') ?>/Offcanvas_files/holder.min.js"></script>
+    <script src="<?= base_url('assets/_jadwal') ?>/Offcanvas_files/offcanvas.js"></script>
 
     <script type="text/javascript">
       function myFunction() {

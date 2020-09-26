@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=0.8, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="<?= base_url("assets/_jadwal/Offcanvas_files/icon.png?ver1.1") ?>">
+    <link rel="icon" href="<?= base_url('assets/_jadwal/Offcanvas_files/'.$icon) ?>">
 
     <title><?php echo $title ?></title>
 
@@ -63,11 +63,17 @@
           <li class="nav-item">
             <a class="nav-link" href="<?php echo base_url('jadwal/') ?>">Home</a>
           </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="<?php echo base_url('jadwal/dosen_index/')  ?>">Pilih Dosen</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="<?php echo base_url('jadwal/dosen/') . $dosen ?>">Jadwal Hari Ini</a>
           </li>
           <li class="nav-item ">
             <a class="nav-link" href="<?php echo base_url('jadwal/dosen/') . $dosen . '/semua' ?>">Jadwal Sepekan</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?php echo base_url('jadwal/jadwal_tabel_dosen/') . $dosen ?>">Jadwal Tabel <span class="badge badge-danger">New</span></a>
           </li>
         </ul>
       </div>
@@ -80,7 +86,7 @@
 
     <main role="main" class="container">
       <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-z2 rounded box-shadow">
-        <img class="mr-3" src="<?= base_url('assets/_jadwal') ?>/Offcanvas_files/icon.png" alt="" width="48" height="48">
+        <img class="mr-3" src="<?= base_url('assets/_jadwal/Offcanvas_files/'.$icon) ?>" alt="" width="48" height="48">
         <div class="lh-100">
           <h6 class="mb-0 text-white lh-100"><?php 
                 if ( empty($jenis) ) {
@@ -90,7 +96,7 @@
                   echo "Ini jadwal untuk seminggu penuh.";
                 }
            ?></h6>
-          <small>02</small>
+          <small></small>
         </div>
       </div>
 
@@ -164,11 +170,11 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="<?= base_url('assets/_jadwal') ?>/Offcanvas_files/holder.min.js.download"></script>
-    <script src="<?= base_url('assets/_jadwal') ?>/Offcanvas_files/offcanvas.js.download"></script>
+    <script src="<?= base_url('assets/') ?>_jadwal/Offcanvas_files/jquery-3.5.1.min.js"></script>
+    <script src="<?= base_url('assets/_jadwal') ?>/Offcanvas_files/popper.min.js"></script>
+    <script src="<?= base_url('assets/_jadwal') ?>/Offcanvas_files/bootstrap.min.js"></script>
+    <script src="<?= base_url('assets/_jadwal') ?>/Offcanvas_files/holder.min.js"></script>
+    <script src="<?= base_url('assets/_jadwal') ?>/Offcanvas_files/offcanvas.js"></script>
 
     <script type="text/javascript">
       var dosen = '<?php echo $dosen ?>';
@@ -197,7 +203,9 @@
       }
       setInterval(function() {
         load_data();
-      }, 1000)
+      }, 2000)
+
+      load_data();
     </script>
   
 
