@@ -5,7 +5,7 @@
           background-attachment: fixed;
           background-size: cover;">
         <div class="card-header bg-dark" style="opacity: 0.9">
-          <h3 class="card-title">Pilih Kelas</h3>
+          <h3 class="card-title"><?php if(!empty($card_header)){echo $card_header;} ?></h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body bg-dark" style="opacity: 0.9">

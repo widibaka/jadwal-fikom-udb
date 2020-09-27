@@ -1,111 +1,17 @@
-<!DOCTYPE html>
-<!-- saved from url=(0053) -->
-<html lang="en"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><style type="text/css" id="dark-mode-custom-style"></style><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
-    <meta name="viewport" content="width=device-width, initial-scale=0.8, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="<?= base_url('assets/_jadwal/Offcanvas_files/'.$icon) ?>">
-
-    <title><?php echo $title ?></title>
-
-    <link rel="canonical" href="">
-
-    <!-- Bootstrap core CSS -->
-    <link href="<?= base_url('assets/_jadwal') ?>/Offcanvas_files/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="<?= base_url('assets/_jadwal') ?>/Offcanvas_files/offcanvas.css" rel="stylesheet">
-
-    <style type="text/css">
-      @-webkit-keyframes glow {
-          to {
-          background-color: #ffdbe0;
-          border-left: 5px solid #456dff;
-          border-right: 2px solid #32a840;
-          }
-      }
-
-      .myGlower {
-          z-index: -1;
-          -webkit-animation: glow 500ms infinite alternate;  
-           -webkit-transition: border 1.0s linear, box-shadow 1.0s linear;
-             -moz-transition: border 1.0s linear, box-shadow 1.0s linear;
-                  transition: border 1.0s linear, box-shadow 1.0s linear;
-      }
-
-      .border-kiri {
-          border-left: 5px solid #ff7083;
-      }
-      .bg-z2 {
-          background-color: #ff7083;
-      }
-      .bg-abu-abu{
-          background-color: #eee;
-      }
-      .loader{
-          padding-top: 2px;
-          padding-bottom: 5px;
-      }
-    </style>
-  </head>
-
-  <body class="bg-light">
-
-    <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
-      <a class="navbar-brand" href="<?= base_url('jadwal') ?>"><?php echo $title ?></a>
-      <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="<?php echo base_url('jadwal/') ?>">Home</a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="<?php echo base_url('jadwal/dosen_index/')  ?>">Pilih Dosen</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="<?php echo base_url('jadwal/dosen/') . $dosen ?>">Jadwal Hari Ini</a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="<?php echo base_url('jadwal/dosen/') . $dosen . '/semua' ?>">Jadwal Sepekan</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="<?php echo base_url('jadwal/jadwal_tabel_dosen/') . $dosen ?>">Jadwal Tabel <span class="badge badge-danger">New</span></a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-    <div class="nav-scroller bg-white box-shadow">
-      <nav class="nav nav-underline">
-      </nav>
+<div class="col-sm-12 clear-fix">
+  <div class="card" style="overflow: hidden; background-image: url(<?= base_url('assets/_jadwal/bg2.jpg') ?>);
+      background-position: top right;
+      background-attachment: fixed;
+      background-size: cover;">
+    <div class="card-header bg-dark" style="opacity: 0.9">
+      <h3 class="card-title"><?php if(!empty($card_header)){echo $card_header;} ?></h3>
     </div>
+    <!-- /.card-header -->
+    <div class="card-body bg-dark" style="opacity: 0.9">
+      <div>
 
-    <main role="main" class="container">
-      <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-z2 rounded box-shadow">
-        <img class="mr-3" src="<?= base_url('assets/_jadwal/Offcanvas_files/'.$icon) ?>" alt="" width="48" height="48">
-        <div class="lh-100">
-          <h6 class="mb-0 text-white lh-100"><?php 
-                if ( empty($jenis) ) {
-                  echo "Ini jadwal untuk hari ini. Coba deh kamu tap jadwalnya.";
-                }
-                elseif ( $jenis == "semua" ) {
-                  echo "Ini jadwal untuk seminggu penuh.";
-                }
-           ?></h6>
-          <small></small>
-        </div>
-      </div>
-
-      <div class="my-3 p-3 bg-white rounded box-shadow">
-
-
-
-        <table class="table table-bordered text-secondary" id="tabel-jadwal">
-          <div class="text-center loader bg-abu-abu">
+        <table class="table table-striped table-dark" id="tabel-jadwal">
+          <div class="text-center loader">
             <img src="<?= base_url('assets/_jadwal') ?>/Offcanvas_files/ajax-loader.gif">
           </div>
         </table>
@@ -114,9 +20,14 @@
         </div>
 
 
-
       </div>
-    </main>
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+</div>
+
+
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -128,37 +39,8 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-            <table class="table table-bordered">
-              <tr>
-                <th>Hari </th>
-                <td id="mo_hari"></td>
-              </tr>
-              <tr>
-                <th>Jam </th>
-                <td id="mo_jam"></td>
-              </tr>
-              <tr>
-                <th>Mata kuliah </th>
-                <td id="mo_mata_kuliah"></td>
-              </tr>
-              <tr>
-                <th>SKS </th>
-                <td id="mo_sks"></td>
-              </tr>
-              <tr>
-                <th>Sifat </th>
-                <td id="mo_sifat"></td>
-              </tr>
-              <tr>
-                <th>Kelas </th>
-                <td id="mo_kelas"></td>
-              </tr>
-              <tr>
-                <th>Ruang </th>
-                <td id="mo_ruang"></td>
-              </tr>
-            </table>
+          <div class="modal-body" id="modal_content">
+            
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
@@ -167,46 +49,6 @@
       </div>
     </div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="<?= base_url('assets/') ?>_jadwal/Offcanvas_files/jquery-3.5.1.min.js"></script>
-    <script src="<?= base_url('assets/_jadwal') ?>/Offcanvas_files/popper.min.js"></script>
-    <script src="<?= base_url('assets/_jadwal') ?>/Offcanvas_files/bootstrap.min.js"></script>
-    <script src="<?= base_url('assets/_jadwal') ?>/Offcanvas_files/holder.min.js"></script>
-    <script src="<?= base_url('assets/_jadwal') ?>/Offcanvas_files/offcanvas.js"></script>
 
-    <script type="text/javascript">
-      var dosen = '<?php echo $dosen ?>';
-      var jenis = '<?php echo $jenis ?>';
-      function load_data() {
-        $.get("<?= base_url() ?>jadwal/get_jadwal_dosen/"+dosen+"/"+jenis+"/", function(data) {
-          $("#tabel-jadwal").html(data);
-          $(".loader").hide();
-        });
-      }
-      function show_modal(id) {
-        let hari = $('#tr-'+id+' .hari').html();
-        let jam = $('#tr-'+id+' .jam').html();
-        let mata_kuliah = $('#tr-'+id+' .mata_kuliah').html();
-        let sks = $('#tr-'+id+' .sks').html();
-        let sifat = $('#tr-'+id+' .sifat').html();
-        let kelas = $('#tr-'+id+' .kelas').html();
-        let ruang = $('#tr-'+id+' .ruang').html();
-        $("#mo_hari").html(hari);
-        $("#mo_jam").html(jam);
-        $("#mo_mata_kuliah").html(mata_kuliah);
-        $("#mo_sks").html(sks);
-        $("#mo_sifat").html(sifat);
-        $("#mo_kelas").html(kelas);
-        $("#mo_ruang").html(ruang);
-      }
-      setInterval(function() {
-        load_data();
-      }, 2000)
-
-      load_data();
-    </script>
+    
   
-
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;"><defs><style type="text/css"></style></defs><text x="0" y="2" style="font-weight:bold;font-size:2pt;font-family:Arial, Helvetica, Open Sans, sans-serif">32x32</text></svg></body></html>

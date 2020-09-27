@@ -26,14 +26,20 @@
                   $active = 'active';
                 } 
                 ?>
-                <li class="nav-item has-treeview" >
-                  <a href="<?= $value ?>" class="nav-link <?= $active ?>">
-                    <i class="nav-icon fa fa-circle-notch"></i>
-                    <p>
-                      <?php echo $key ?>
-                    </p>
-                  </a>
-                </li>
+
+                <?php if ( $value != 'pisahkan' ): ?>
+                  <li class="nav-item has-treeview" >
+                    <a href="<?= $value ?>" class="nav-link <?= $active ?>">
+                      <i class="nav-icon far fa-circle text-warning"></i>
+                      <p>
+                        <?php echo $key; ?>
+                      </p>
+                    </a>
+                  </li>
+                <?php else: ?>
+                  <div style="border-bottom: solid #666 1px"></div>
+                <?php endif ?>
+                
               <?php endforeach ?>
               
             </ul>

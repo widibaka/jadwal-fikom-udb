@@ -9,12 +9,9 @@
 
   </div>
     <!-- /.content -->
-  <footer class="main-footer bg-dark" style="border-top: solid #333 1px;">
-   <!--  <div class="float-right d-none d-sm-block">
-      <b>Version</b> 3.0.5
-    </div> -->
+  <!-- <footer class="main-footer bg-dark" style="border-top: solid #333 1px;">
     <strong>Korek Software 2020 - <?php echo date("Y") ?> 
-  </footer>
+  </footer> -->
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">

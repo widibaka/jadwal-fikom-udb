@@ -16,7 +16,7 @@
 
     <?php 
     // warna hari
-    $warna_hari = ['primary', 'danger', 'info', 'success', 'primary', 'dark', 'warning', 'primary' ];
+    $warna_hari = ['primary', 'danger', 'info', 'primary', 'warning', 'success', 'primary', 'danger' ];
     ?>
 
     <?php foreach ($jadwal as $key => $value): ?>
@@ -42,32 +42,21 @@
         <td class="jam"><?php echo substr($value['jam_mulai'], 0, -3) . ' - ' . substr($value['jam_selesai'], 0, -3) ?></td>
         <td class="dosen"><a title="Buka jadwal milik <?php echo $value['dosen'] ?>" href="<?php echo base_url('jadwal/dosen/') . str_replace('/', 'garis_miring', base64_encode($value['dosen'])) ?>"><?php echo $value['dosen'] ?></a> <?php 
         
-        // ketika kkurang 15 menit sblm mulai
-        if ( -60*15 < $value['selisih_dg_waktu_mulai'] && $value['selisih_dg_waktu_mulai'] < 0 ) {
+        // ketika kkurang 15 menit (gak jadi, ganti 12 jam aja) sblm mulai
+        if ( -60*60*12 < $value['selisih_dg_waktu_mulai'] && $value['selisih_dg_waktu_mulai'] < 0 ) {
+          $timer = $this->_jadwalModel->hitung_durasi( $value['selisih_dg_waktu_mulai'] );
 
-          $selisih_dg_waktu_mulai = str_replace('-', '', $value['selisih_dg_waktu_mulai']);
-          $jam = sprintf('%02d',  floor($selisih_dg_waktu_mulai / (60*60) )   );
-          $sisa_setelah_jam = $selisih_dg_waktu_mulai % (60*60);
-          $menit = sprintf('%02d',  floor($sisa_setelah_jam / 60)   );
-          $sisa_setelah_menit = $selisih_dg_waktu_mulai % 60;
-          $detik = sprintf('%02d',  $selisih_dg_waktu_mulai % 60   );
-
-          echo '<br><span class="badge badge-success '.$value['timer'].'">Mulai dalam ';
-          echo $jam . ":" . $menit . ":" . $detik;
+          echo '<br><span class="badge badge-success timer '.$value['timer'].'">';
+          echo "Mulai dalam " . $timer['jam'] . ":" . $timer['menit'];
           echo '</span>';
 
         }
         // ketika masuk jam kuliah
         elseif ( $value['selisih_dg_waktu_selesai'] > 0 && 0 < $value['selisih_dg_waktu_mulai'] ) {
-          $selisih_dg_waktu_selesai = str_replace('-', '', $value['selisih_dg_waktu_selesai']);
-          $jam = sprintf('%02d',  floor($selisih_dg_waktu_selesai / (60*60) )   );
-          $sisa_setelah_jam = $selisih_dg_waktu_selesai % (60*60);
-          $menit = sprintf('%02d',  floor($sisa_setelah_jam / 60)   );
-          $sisa_setelah_menit = $selisih_dg_waktu_selesai % 60;
-          $detik = sprintf('%02d',  $selisih_dg_waktu_selesai % 60   );
+          $timer = $this->_jadwalModel->hitung_durasi( $value['selisih_dg_waktu_selesai'] );
 
-          echo '<br><span class="badge badge-primary '.$value['timer'].'">';
-          echo $jam . ":" . $menit . ":" . $detik;
+          echo '<br><span class="badge badge-primary timer '.$value['timer'].'">';
+          echo "Berlangsung " . $timer['jam'] . ":" . $timer['menit'];
           echo '</span>';
         }
 

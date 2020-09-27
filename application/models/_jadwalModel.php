@@ -11,6 +11,38 @@ class _jadwalModel extends CI_Model
 		# code...
 	}
 
+	public function hitung_durasi($selisih_dg_waktu_mulai)
+	{
+		$selisih_dg_waktu_mulai = str_replace('-', '', $selisih_dg_waktu_mulai);
+		$jam = sprintf('%02d',  floor($selisih_dg_waktu_mulai / (60*60) )   );
+		$sisa_setelah_jam = $selisih_dg_waktu_mulai % (60*60);
+		$menit = sprintf('%02d',  floor($sisa_setelah_jam / 60)   );
+		$sisa_setelah_menit = $selisih_dg_waktu_mulai % 60;
+		$detik = sprintf('%02d',  $selisih_dg_waktu_mulai % 60   );
+
+		return $data = [
+			'jam' => $jam,
+			'menit' => $menit,
+			'detik' => $detik,
+		];
+	}
+
+	public function hitung_waktu_mulai($selisih_dg_waktu_selesai)
+	{
+		$selisih_dg_waktu_selesai = str_replace('-', '', $selisih_dg_waktu_selesai);
+		$jam = sprintf('%02d',  floor($selisih_dg_waktu_selesai / (60*60) )   );
+		$sisa_setelah_jam = $selisih_dg_waktu_selesai % (60*60);
+		$menit = sprintf('%02d',  floor($sisa_setelah_jam / 60)   );
+		$sisa_setelah_menit = $selisih_dg_waktu_selesai % 60;
+		$detik = sprintf('%02d',  $selisih_dg_waktu_selesai % 60   );
+		
+		return $data = [
+			'jam' => $jam,
+			'menit' => $menit,
+			'detik' => $detik,
+		];
+	}
+
 	public function proses_jadwal($jadwal, $mati, $timer_mati)
 	{
 		for ($i=0; $i < count($jadwal); $i++) { 			
@@ -53,7 +85,7 @@ class _jadwalModel extends CI_Model
 				$limabelas_menit = 60*15;
 				$jadwal[$i]['nyala'] .= 'text-white border-kiri';
 				if ( $selisih_dg_waktu_mulai > -$limabelas_menit &&  $selisih_dg_waktu_selesai > 0 ) {
-					$jadwal[$i]['nyala'] .= ' myGlower';
+					$jadwal[$i]['nyala'] .= ' menyala';
 				}
 			}else{
 				$jadwal[$i]['nyala'] .= $mati;
@@ -70,48 +102,33 @@ class _jadwalModel extends CI_Model
 		$jam_mulai_minus_10menit = date('H:i:s', strtotime($jam_mulai) + $sepuluh_menit);
 		$jam_selesai_plus_10menit = date('H:i:s', strtotime($jam_selesai) - $sepuluh_menit);
 
+		///////////////////////////////////////////////////////
 		$this->db->where('jam_mulai <=', $jam_mulai_minus_10menit);
 		$this->db->where('jam_selesai >=', $jam_selesai_plus_10menit);
 		$this->db->where('hari', $hari);
 		$this->db->where('kelas', $kelas);
 		$this->db->where('jurusan', $jurusan);
+		$jadwal = $this->db->get('_jadwal')->result_array();
 
-		$jadwal = $this->db->get('_jadwal')->row_array();
+		if ( count($jadwal) > 1 ) { // jika tabrakan
 
-		if ( $jadwal ) {
-			
-		}
-
-		$jadwal0 = [];
-
-		if ( $jadwal ) {
-			///////////////////////////////////////////////////////
-			$this->db->where('jam_mulai <=', $jam_mulai_minus_10menit);
-			$this->db->where('jam_selesai >=', $jam_selesai_plus_10menit);
-			$this->db->where('hari', $hari);
-			$this->db->where('kelas', $kelas);
-			$this->db->where('jurusan', $jurusan);
-			$jadwal_array = $this->db->get('_jadwal')->result_array();
-			if ( count($jadwal_array) > 1 ) { // jika tabrakan
-				$jadwal0['tabrakan'] = true;
-
-				$jadwal['inisial'] = '';
-				foreach ($jadwal_array as $key => $value) {
-					$jadwal['inisial'] .= ' # ' . $value['mata_kuliah'] . '<br>';
-				}
+			foreach ($jadwal as $key => $value) {
+				$jadwal[$key]['tabrakan'] = true;
+				$jadwal[$key]['inisial'] = substr( '#' . $jadwal[$key]['mata_kuliah'] , 0, 10 ) . '...';
 			}
-			else{
-				$jadwal['inisial'] = substr( $jadwal['mata_kuliah'] , 0, 10 ) . '...';
-			}
-			///////////////////////////////////////////////////////
-			$jadwal['aktif'] = $this->cek_jadwal_aktif($jam_mulai, $jam_selesai, $hari);
-			
-			// var_dump( $jadwal );
-			// die();
-			return array_merge($jadwal, $jadwal0);
 		}
-
-		return $jadwal;
+		else if ( count($jadwal) == 1 ){
+			$jadwal[0]['inisial'] = substr( $jadwal[0]['mata_kuliah'] , 0, 10 ) . '...';
+		}
+		///////////////////////////////////////////////////////
+		$jadwal[0]['aktif'] = $this->cek_jadwal_aktif($jam_mulai, $jam_selesai, $hari);
+		
+		if ( !empty($jadwal[0]['mata_kuliah']) ) {
+			return $jadwal;
+		}
+		else{
+			return false;
+		}
 	}
 
 	public function get_jadwal_dosen_tabel($jam_mulai, $jam_selesai, $hari, $dosen)

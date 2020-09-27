@@ -40,13 +40,42 @@
   <style type="text/css">
     @-webkit-keyframes glow {
         to {
-        background-color: #ffdbe0;
         border-left: 5px solid #456dff;
-        border-right: 2px solid #32a840;
+        background-color: #474040;
         }
     }
 
-    .myGlower {
+    .data_jadwal:hover{
+      background-color: #666;
+    }
+    .tetap1{
+      background-color: #1b4e81;
+      color: #fff;
+    }
+    .tetap{
+      background-color: #1b4e81;
+      color: #fff;
+    }
+    .tetap:hover{
+      background-color: #666;
+    }
+    .tambahan1{
+      background-color: #46811b;
+      color: #fff;
+    }
+    .tambahan{
+      background-color: #46811b;
+      color: #fff;
+    }
+    .tetap:hover{
+      background-color: #666;
+    }
+    .tabrakan{
+      background-color: #fc0324;
+      color: #fff;
+    }
+
+    .menyala {
         z-index: -1;
         -webkit-animation: glow 500ms infinite alternate;  
          -webkit-transition: border 1.0s linear, box-shadow 1.0s linear;
@@ -61,11 +90,10 @@
         background-color: #ff7083;
     }
     .bg-abu-abu{
-        background-color: rgba(0,0,0,.2);
         color: #919191;
     }
     .bg-cerah{
-        background-color: rgba(255,255,255,.1);
+
         color: #fff;
     }
     .loader{

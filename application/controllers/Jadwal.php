@@ -27,6 +27,9 @@ class Jadwal extends CI_Controller {
 		$this->set_view_count();
 		$jadwal = $this->db->get('_jadwal')->result_array();
 
+		$data['icon'] = "02.gif";
+		$data['title'] = "Home";
+		// sidebar
 		$jurusan = [];
 
 		foreach ($jadwal as $key => $value) {
@@ -35,12 +38,24 @@ class Jadwal extends CI_Controller {
 
 		$data['jurusan'] = array_unique($jurusan);
 
-		$data['icon'] = "02.gif";
-		$data['title'] = "Home";
 		// sidebar
 		$data['sidebar'] = [
 			'Home' => base_url(),
+			'TI' => base_url() . 'jadwal/jurusan/TI',
+			'MI' => base_url() . 'jadwal/jurusan/MI',
+			'SI' => base_url() . 'jadwal/jurusan/SI',
+			'TK' => base_url() . 'jadwal/jurusan/TK',
+			
+			'2' => 'pisahkan',
+
+			'Dosen' => base_url() . 'jadwal/dosen',
+			'Ruangan' => base_url() . 'jadwal/ruangan',
+			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
 		];
+
+		foreach ($data['jurusan'] as $key => $value) {
+			$data['sidebar'][$value] = base_url() . 'jadwal/jurusan/' . $value;
+		}
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/sidebar', $data);
@@ -48,7 +63,6 @@ class Jadwal extends CI_Controller {
 		$this->load->view('_jadwal_home', $data);
 		$this->load->view('templates/footer', $data);
 	}
-
 
 	public function jurusan($jurusan = '')
 	{
@@ -66,12 +80,23 @@ class Jadwal extends CI_Controller {
 
 		$data['classes'] = array_unique($classes);
 		$data['jurusan'] = $jurusan;
+		$data['card_header'] = "Pilih Kelas";
 
 		$data['icon'] = "02.gif";
 		$data['title'] = strtoupper($jurusan);
 		// sidebar
 		$data['sidebar'] = [
 			'Home' => base_url(),
+			'TI' => base_url() . 'jadwal/jurusan/TI',
+			'MI' => base_url() . 'jadwal/jurusan/MI',
+			'SI' => base_url() . 'jadwal/jurusan/SI',
+			'TK' => base_url() . 'jadwal/jurusan/TK',
+
+			'2' => 'pisahkan',
+
+			'Dosen' => base_url() . 'jadwal/dosen',
+			'Ruangan' => base_url() . 'jadwal/ruangan',
+			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
 		];
 
 		$this->load->view('templates/header', $data);
@@ -84,7 +109,12 @@ class Jadwal extends CI_Controller {
 	public function kelas($jurusan = '', $kelas = '', $jenis = '')
 	{
 		$this->set_view_count();
-		$data['title'] = "Jadwal " . strtoupper($jurusan.$kelas);
+		if ( $jenis == 'semua' ) {
+			$data['title'] = "Jadwal Sepekan";
+		}else{
+			$data['title'] = "Jadwal Hari Ini";
+		}
+		$data['card_header'] = "Jadwal " . strtoupper($jurusan.$kelas);
 		$data['icon'] = "02.gif";
 		$data['jurusan'] = $jurusan;
 		$data['jenis'] = $jenis;
@@ -93,10 +123,22 @@ class Jadwal extends CI_Controller {
 		// sidebar
 		$data['sidebar'] = [
 			'Home' => base_url(),
-			'Pilih Kelas' => base_url('jadwal/jurusan/' . $jurusan),
-			'Jadwal Hari Ini' => base_url('jadwal/jurusan/') . $jurusan . "/" . $kelas . "/",
+			'Jadwal Hari Ini' => base_url('jadwal/kelas/') . $jurusan . "/" . $kelas . "/",
 			'Jadwal Sepekan' => base_url('jadwal/kelas/') . $jurusan . "/" . $kelas . "/semua",
 			'Jadwal Tabel' => base_url('jadwal/jadwal_tabel/') . $jurusan . "/" . $kelas,
+
+			'1' => 'pisahkan',
+
+			'TI' => base_url() . 'jadwal/jurusan/TI',
+			'MI' => base_url() . 'jadwal/jurusan/MI',
+			'SI' => base_url() . 'jadwal/jurusan/SI',
+			'TK' => base_url() . 'jadwal/jurusan/TK',
+
+			'2' => 'pisahkan',
+
+			'Dosen' => base_url() . 'jadwal/dosen',
+			'Ruangan' => base_url() . 'jadwal/ruangan',
+			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
 		];
 
 		$this->load->view('templates/header', $data);
@@ -128,7 +170,8 @@ class Jadwal extends CI_Controller {
 			}
 			
 		}
-		$data['title'] = "Jadwal Tabel ".$jurusan.$kelas;
+		$data['title'] = "Jadwal Tabel";
+		$data['card_header'] = "Jadwal Tabel ".$jurusan.$kelas;
 		$data['icon'] = "nezuko.gif";
 		
 
@@ -144,9 +187,128 @@ class Jadwal extends CI_Controller {
 		$data['hari'] = $hari;
 		$data['jam'] = $jam;
 
+		// sidebar
+		$data['sidebar'] = [
+			'Home' => base_url(),
+			'Jadwal Hari Ini' => base_url('jadwal/kelas/') . $jurusan . "/" . $kelas . "/",
+			'Jadwal Sepekan' => base_url('jadwal/kelas/') . $jurusan . "/" . $kelas . "/semua",
+			'Jadwal Tabel' => base_url('jadwal/jadwal_tabel/') . $jurusan . "/" . $kelas,
 
+			'1' => 'pisahkan',
+
+			'TI' => base_url() . 'jadwal/jurusan/TI',
+			'MI' => base_url() . 'jadwal/jurusan/MI',
+			'SI' => base_url() . 'jadwal/jurusan/SI',
+			'TK' => base_url() . 'jadwal/jurusan/TK',
+
+			'2' => 'pisahkan',
+
+			'Dosen' => base_url() . 'jadwal/dosen',
+			'Ruangan' => base_url() . 'jadwal/ruangan',
+			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
+		];
+
+
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/sidebar', $data);
+		$this->load->view('templates/navbar', $data);
 		$this->load->view('_jadwal_mahasiswa_tabel', $data);
+		$this->load->view('templates/footer', $data);
+		$this->load->view('_jadwal_mahasiswa_tabel_js', $data);
 	}
+
+
+	//dosen
+	public function dosen_index()
+	{
+		$this->set_view_count();
+		$data['icon'] = "miku0.gif";
+		$this->db->order_by("dosen", "ASC");
+		$jadwal = $this->db->get('_jadwal')->result_array();
+
+		$dosen = [];
+
+		foreach ($jadwal as $key => $value) {
+			array_push($dosen, $value['dosen']);
+		}
+
+		$data['dosen'] = array_unique($dosen);
+
+		$data['card_header'] = "Pilih Dosen";
+
+		$data['title'] = "Dosen";
+		// sidebar
+		$data['sidebar'] = [
+			'Home' => base_url(),
+			'TI' => base_url() . 'jadwal/jurusan/TI',
+			'MI' => base_url() . 'jadwal/jurusan/MI',
+			'SI' => base_url() . 'jadwal/jurusan/SI',
+			'TK' => base_url() . 'jadwal/jurusan/TK',
+			
+			'2' => 'pisahkan',
+
+			'Dosen' => base_url() . 'jadwal/dosen',
+			'Ruangan' => base_url() . 'jadwal/ruangan',
+			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
+		];
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/sidebar', $data);
+		$this->load->view('templates/navbar', $data);
+		$this->load->view('_jadwal_dosen_index', $data);
+		$this->load->view('templates/footer', $data);
+	}
+
+	public function dosen($dosen = '' , $jenis = '' )
+	{
+		$this->set_view_count();
+		$dosen_decoded = base64_decode(str_replace('garis_miring', '/', $dosen));
+		$data['card_header'] = "Jadwal " . $dosen_decoded;
+		
+		$data['icon'] = "miku0.gif";
+		$data['dosen'] = $dosen;
+		$data['jenis'] = $jenis;
+
+		if ( $jenis == 'semua' ) {
+			$data['title'] = "Jadwal Sepekan";
+		}else{
+			$data['title'] = "Jadwal Hari Ini";
+		}
+
+		// sidebar
+		$data['sidebar'] = [
+			'Home' => base_url(),
+			'Jadwal Hari Ini' => base_url().'jadwal/dosen/'.$dosen,
+			'Jadwal Sepekan' => base_url().'jadwal/dosen/'.$dosen . '/semua',
+			'Jadwal Tabel <span class="badge badge-danger">New</span>' => base_url().'jadwal/jadwal_tabel_dosen/'.$dosen,
+
+			'1' => 'pisahkan',
+
+			'TI' => base_url() . 'jadwal/jurusan/TI',
+			'MI' => base_url() . 'jadwal/jurusan/MI',
+			'SI' => base_url() . 'jadwal/jurusan/SI',
+			'TK' => base_url() . 'jadwal/jurusan/TK',
+
+			'2' => 'pisahkan',
+
+			'Dosen' => base_url() . 'jadwal/dosen',
+			'Ruangan' => base_url() . 'jadwal/ruangan',
+			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
+		];
+
+		if ( !empty($dosen) ) {
+			$this->load->view('templates/header', $data);
+			$this->load->view('templates/sidebar', $data);
+			$this->load->view('templates/navbar', $data);
+			$this->load->view('_jadwal_dosen', $data);
+			$this->load->view('templates/footer', $data);
+			$this->load->view('_jadwal_dosen_js', $data);
+		}else{
+			redirect( base_url() . 'jadwal/dosen_index' );
+		}
+	}
+
 
 	public function jadwal_tabel_dosen($enc_dosen = '')
 	{
@@ -245,48 +407,6 @@ class Jadwal extends CI_Controller {
 
 
 
-
-
-
-
-
-
-
-	//dosen
-	public function dosen_index()
-	{
-		$this->set_view_count();
-		$data['title'] = "Jadwal Dosen";
-		$data['icon'] = "miku0.gif";
-		$this->db->order_by("dosen", "ASC");
-		$jadwal = $this->db->get('_jadwal')->result_array();
-
-		$dosen = [];
-
-		foreach ($jadwal as $key => $value) {
-			array_push($dosen, $value['dosen']);
-		}
-
-		$data['dosen'] = array_unique($dosen);
-
-		$this->load->view('_jadwal_dosen_index', $data);
-	}
-
-	public function dosen($dosen = '' , $jenis = '' )
-	{
-		$this->set_view_count();
-		$dosen_decoded = base64_decode(str_replace('garis_miring', '/', $dosen));
-		$data['title'] = "Jadwal " . $dosen_decoded;
-		$data['icon'] = "miku0.gif";
-		$data['dosen'] = $dosen;
-		$data['jenis'] = $jenis;
-
-		if ( !empty($dosen) ) {
-			$this->load->view('_jadwal_dosen', $data);
-		}else{
-			redirect( base_url() . 'jadwal/dosen_index' );
-		}
-	}
 
 
 
