@@ -1,5 +1,5 @@
 <div class="col-sm-12 clear-fix">
-  <div class="card" style="overflow: hidden; background-image: url(<?= base_url('assets/_jadwal/bg2.jpg') ?>);
+  <div class="card" style="background-image: url(<?= base_url('assets/_jadwal/bg2.jpg') ?>);
       background-position: top right;
       background-attachment: fixed;
       background-size: cover;">
@@ -52,7 +52,7 @@
                         if( !empty($jadwal_tunggal[0]['tabrakan']) ){
                           echo ' tabrakan';
                         }
-                      ?>" id="td-<?php echo $jadwal_tunggal[0]['id'] ?>" onclick="show_modal(<?php echo $jadwal_tunggal[0]['id'] ?>)"  data-toggle="modal" data-target="#exampleModalLong">
+                      ?>" id="td-<?php echo $jadwal_tunggal[0]['id'] ?>" onclick="show_modal(<?php echo $jadwal_tunggal[0]['id'] ?>)"  data-toggle="modal" data-target="#exampleModalLong" style="background-color: <?php if(!empty($jadwal_tunggal[0]['warna_dosen'])){echo $jadwal_tunggal[0]['warna_dosen'];} ?>">
                       <span class="inisial font-weight-bold"><?php 
                           foreach ($jadwal_tunggal as $key => $value) {
                             echo $value['inisial'] . '<br>';

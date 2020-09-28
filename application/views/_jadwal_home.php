@@ -1,7 +1,7 @@
 
    
   <div class="col-sm-12 clear-fix">
-    <div class="card" style="overflow: hidden; background-image: url(<?= base_url('assets/_jadwal/bg.jpg') ?>);
+    <div class="card" style="background-image: url(<?= base_url('assets/_jadwal/bg.jpg') ?>);
         background-position: center;
         background-attachment: fixed;
         background-size: cover;">
@@ -15,7 +15,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
                         <div class="page-title home text-center">
-                          <span class="heading-page">Selamat Datang
+                          <span class="heading-page">Jadwal Fikom UDB ver.2
                           </span>
                             <p class="mt20">Pilih divisi kamu untuk melihat jadwal misi.</p>
                         </div>
@@ -81,7 +81,7 @@
                                       <div></div>
                                       <div></div>
                                   </div>
-                                  <a href="<?php echo base_url('jadwal/ruangan_index') ?>" class="hex-content">
+                                  <a href="<?php echo base_url() . 'jadwal/jadwal_tabel_ruangan/Senin/' ?>" class="hex-content">
                                       <span class="hex-content-inner">
                                           <span class="icon">
                                               <i class="fa fa-university"></i>
@@ -161,7 +161,7 @@
                             <div></div>
                             <div></div>
                         </div>
-                        <a href="https://github.com/widibaka/jadwal-fikom-udb" class="hex-content">
+                        <a href="https://github.com/widibaka/jadwal-fikom-udb" class="hex-content" target="_blank">
                             <span class="hex-content-inner">
                                 <span class="icon">
                                     <i class="fab fa-github-alt"></i>
@@ -183,7 +183,7 @@
                             <div></div>
                             <div></div>
                         </div>
-                        <a href="https://wa.me/+6281226203761" class="hex-content">
+                        <a href="https://wa.me/+6281226203761" class="hex-content" target="_blank">
                             <span class="hex-content-inner">
                                 <span class="icon">
                                     <i class="fab fa-whatsapp"></i>

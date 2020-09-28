@@ -119,6 +119,7 @@ class _jadwalModel extends CI_Model
 		}
 		else if ( count($jadwal) == 1 ){
 			$jadwal[0]['inisial'] = substr( $jadwal[0]['mata_kuliah'] , 0, 10 ) . '...';
+			$jadwal[0]['warna_dosen'] = $this->get_dosen_color($jadwal[0]['dosen']);
 		}
 		///////////////////////////////////////////////////////
 		$jadwal[0]['aktif'] = $this->cek_jadwal_aktif($jam_mulai, $jam_selesai, $hari);
@@ -142,32 +143,26 @@ class _jadwalModel extends CI_Model
 		$this->db->where('jam_selesai >=', $jam_selesai_plus_10menit);
 		$this->db->where('hari', $hari);
 		$this->db->where('dosen', $dosen);
-		$jadwal = $this->db->get('_jadwal')->row_array();
+		$jadwal = $this->db->get('_jadwal')->result_array();
 
-		$jadwal0 = [];
+		if ( count($jadwal) > 1 ) { // jika tabrakan
 
-		if ( $jadwal ) {
-			///////////////////////////////////////////////////////
-			$this->db->where('jam_mulai <=', $jam_mulai_minus_10menit);
-			$this->db->where('jam_selesai >=', $jam_selesai_plus_10menit);
-			$this->db->where('hari', $hari);
-			$this->db->where('dosen', $dosen);
-			$jadwal_array = $this->db->get('_jadwal')->result_array();
-			if ( count($jadwal_array) > 1 ) { // jika tabrakan
-				$jadwal0['tabrakan'] = true;
-
-				$jadwal['inisial'] = '';
-				foreach ($jadwal_array as $key => $value) {
-					$jadwal['inisial'] .= ' # ' . strtoupper($value['jurusan']) . $value['kelas'] . '<br>';
-				}
+			foreach ($jadwal as $key => $value) {
+				$jadwal[$key]['tabrakan'] = true;
+				$jadwal[$key]['inisial'] =  '#' . strtoupper($jadwal[$key]['jurusan']) . $jadwal[$key]['kelas'];
 			}
-			else{
-				$jadwal['inisial'] = strtoupper($jadwal['jurusan']).$jadwal['kelas'];
-			}
-			///////////////////////////////////////////////////////
-			$jadwal['aktif'] = $this->cek_jadwal_aktif($jam_mulai, $jam_selesai, $hari);
-			
-			return array_merge($jadwal, $jadwal0);
+		}
+		else if ( count($jadwal) == 1 ){
+			$jadwal[0]['inisial'] = strtoupper($jadwal[0]['jurusan']) . $jadwal[0]['kelas'];
+		}
+		///////////////////////////////////////////////////////
+		$jadwal[0]['aktif'] = $this->cek_jadwal_aktif($jam_mulai, $jam_selesai, $hari);
+		
+		if ( !empty($jadwal[0]['mata_kuliah']) ) {
+			return $jadwal;
+		}
+		else{
+			return false;
 		}
 
 
@@ -184,46 +179,26 @@ class _jadwalModel extends CI_Model
 		$this->db->where('jam_selesai >=', $jam_selesai_plus_10menit);
 		$this->db->where('hari', $hari);
 		$this->db->where('ruang', $ruangan);
-		$jadwal = $this->db->get('_jadwal')->row_array();
+		$jadwal = $this->db->get('_jadwal')->result_array();
 
-		$jadwal0 = [];
+		if ( count($jadwal) > 1 ) { // jika tabrakan
 
-		if ( $jadwal ) {
-			///////////////////////////////////////////////////////
-			$this->db->where('jam_mulai <=', $jam_mulai_minus_10menit);
-			$this->db->where('jam_selesai >=', $jam_selesai_plus_10menit);
-			$this->db->where('hari', $hari);
-			$this->db->where('ruang', $ruangan);
-			$jadwal_array = $this->db->get('_jadwal')->result_array();
-			if ( count($jadwal_array) > 1 ) { // jika tabrakan
-				$jadwal0['tabrakan'] = true;
-
-				$jadwal['inisial'] = ' # ' . strtoupper( substr( $jadwal['dosen'] , 0 , 4 ) ) . '...';
-				$jadwal['mata_kuliah'] = '';
-				$jadwal['sifat'] = '';
-				$jadwal['sks'] = '';
-				$jadwal['dosen'] = '';
-				$jadwal['jurusan'] = '';
-				$jadwal['kelas'] = '';
-				$jadwal['jenis'] = '';
-				foreach ($jadwal_array as $key => $value) {
-					$jadwal['mata_kuliah'] .= ' # ' . $value['mata_kuliah'].'<br>';
-					$jadwal['sifat'] .= ' # ' . $value['sifat'].'<br>';
-					$jadwal['sks'] .= ' # ' . $value['sks'].'<br>';
-					$jadwal['dosen'] .= ' # ' . $value['dosen'].'<br>';
-					$jadwal['jurusan'] .= ' # ' . $value['jurusan'].'<br>';
-					$jadwal['kelas'] .= ' # ' . $value['kelas'].'<br>';
-					$jadwal['jenis'] .= ' # ' . $value['jenis'].'<br>';
-				}
-			}
-			else{
-				$jadwal['inisial'] = strtoupper( substr( $jadwal['dosen'] , 0 , 4 ) ) . '...';
-				$jadwal0['warna_dosen'] = $this->get_dosen_color($jadwal['dosen']);
-			}
-			///////////////////////////////////////////////////////
-			$jadwal['aktif'] = $this->cek_jadwal_aktif($jam_mulai, $jam_selesai, $hari);
-			
-			return array_merge($jadwal, $jadwal0);
+			$jadwal[0]['tabrakan'] = true;
+			$jadwal[0]['inisial'] = '######';
+		}
+		else if ( count($jadwal) == 1 ){
+			$jadwal[0]['tabrakan'] = false;
+			$jadwal[0]['inisial'] = strtoupper( substr( $jadwal[0]['dosen'] , 0 , 4 ) ) . '...';
+			$jadwal[0]['warna_dosen'] = $this->get_dosen_color($jadwal[0]['dosen']);
+		}
+		///////////////////////////////////////////////////////
+		$jadwal[0]['aktif'] = $this->cek_jadwal_aktif($jam_mulai, $jam_selesai, $hari);
+		
+		if ( !empty($jadwal[0]['mata_kuliah']) ) {
+			return $jadwal;
+		}
+		else{
+			return false;
 		}
 
 
@@ -231,11 +206,8 @@ class _jadwalModel extends CI_Model
 	}
 
 	public function rand_color() {
-	    $str = '#';
-	    for($i = 0 ; $i < 3 ; $i++) {
-	        $str .= dechex( rand(100 , 255) );
-	    }
-	    return $str;
+	    $rand = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f');
+	    return '#'.$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)];
 	}
 
 	public function get_ruangan_list()

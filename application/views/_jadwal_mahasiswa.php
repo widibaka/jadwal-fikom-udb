@@ -1,6 +1,6 @@
 
     <div class="col-sm-12 text-white">
-      <div class="card" style="overflow: hidden; background-image: url(<?= base_url('assets/_jadwal/bg.jpg') ?>);
+      <div class="card" style="background-image: url(<?= base_url('assets/_jadwal/bg.jpg') ?>);
           background-position: center;
           background-attachment: fixed;
           background-size: cover;">

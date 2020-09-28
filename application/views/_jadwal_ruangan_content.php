@@ -37,10 +37,10 @@
       
       <tr class="<?php echo $value['nyala'] ?> <?php echo $value['jadwal_udah_lewat'] ?>" id="tr-<?php echo $value['id'] ?>" onclick="show_modal(<?php echo $value['id'] ?>)"  data-toggle="modal" data-target="#exampleModalLong">
 
-        <td class="hari font-weight-bold text-<?php echo $warna_hari[ $value['index_hari'] ] ?>"><?php echo $value['hari'] ?></td>
-        <td class="ruang"><a title="Buka jadwal ruang <?php echo $value['ruang'] ?> hari <?php echo $value['hari'] ?>" href="<?php echo base_url() . 'jadwal/ruangan/'.$value['index_hari'].'/' . base64_encode(str_replace('/', 'garis_miring', $value['ruang'])) ?>"><?php echo $value['ruang'] ?></a></td>
-        <td class="jam"><?php echo substr($value['jam_mulai'], 0, -3) . ' - ' . substr($value['jam_selesai'], 0, -3) ?></td>
-        <td class="dosen"><a title="Buka jadwal milik <?php echo $value['dosen'] ?>" href="<?php echo base_url('jadwal/dosen/') . str_replace('/', 'garis_miring', base64_encode($value['dosen'])) ?>"><?php echo $value['dosen'] ?></a> <?php 
+        <td class="font-weight-bold text-<?php echo $warna_hari[ $value['index_hari'] ] ?>"><?php echo $value['hari'] ?></td>
+        <td><?php echo $value['ruang'] ?></td>
+        <td><?php echo substr($value['jam_mulai'], 0, -3) . ' - ' . substr($value['jam_selesai'], 0, -3) ?></td>
+        <td><?php echo $value['dosen'] ?> <?php 
         
         // ketika kkurang 15 menit (gak jadi, ganti 12 jam aja) sblm mulai
         if ( -60*60*12 < $value['selisih_dg_waktu_mulai'] && $value['selisih_dg_waktu_mulai'] < 0 ) {
@@ -65,7 +65,23 @@
         <td class="sks d-none"><?php echo $value['sks'] ?></td>
         <td class="sifat d-none"><?php echo $value['sifat'] ?></td>
         <td class="mata_kuliah d-none"><?php echo $value['mata_kuliah'] ?></td>
-        <td class="kelas"><a title="Buka jadwal kelas <?php echo strtoupper($value['jurusan']) . ' ' . $value['kelas'] ?>" href="<?php echo base_url('jadwal/kelas/') . $value['jurusan'] . "/" . $value['kelas'] ?>"><?php echo strtoupper($value['jurusan']) . ' ' . $value['kelas'] ?></a></td>
+        <td class="kelas"><?php echo strtoupper($value['jurusan']) . ' ' . $value['kelas'] ?></td>
+
+        <!-- Detail jadwal -->
+        <td class="d-none" id="detail_jadwal">
+          <ul class="list-group" style="list-style-type: none;" style="border: none;">
+              
+            <li class="mb-2">Hari: <strong><?php echo $value['hari'] ?></strong></li>
+            <li class="mb-2">Jam: <strong><?php echo substr($value['jam_mulai'], 0, -3) . ' - ' . substr($value['jam_selesai'], 0, -3) ?></strong></li>
+            <li class="mb-2">Mata kuliah: <strong><?php echo $value['mata_kuliah'] ?></strong></li>
+            <li class="mb-2">SKS: <strong><?php echo $value['sks'] ?></strong></li>
+            <li class="mb-2">Dosen: <strong><a title="Buka jadwal milik <?php echo $value['dosen'] ?>" href="<?php echo base_url('jadwal/dosen/') . str_replace('/', 'garis_miring', base64_encode($value['dosen'])) ?>"><?php echo $value['dosen'] ?></a></strong></li>
+            <li class="mb-2">Sifat: <strong><?php echo $value['sifat'] ?></strong></li>
+            <li class="mb-2">Kelas: <strong><a title="Buka jadwal kelas <?php echo strtoupper($value['jurusan']) . ' ' . $value['kelas'] ?>" href="<?php echo base_url('jadwal/kelas/') . $value['jurusan'] . "/" . $value['kelas'] ?>"><?php echo strtoupper($value['jurusan']) . ' ' . $value['kelas'] ?></a></strong></li>
+            <li class="mb-2">Ruang: <strong><a title="Buka jadwal ruang <?php echo $value['ruang'] ?> hari <?php echo $value['hari'] ?>" href="<?php echo base_url() . 'jadwal/ruangan/'.$value['index_hari'].'/' . base64_encode(str_replace('/', 'garis_miring', $value['ruang'])) ?>"><?php echo $value['ruang'] ?></a></strong></li>
+
+          </ul>
+        </td>
 
       </tr>
 

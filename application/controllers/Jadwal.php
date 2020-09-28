@@ -49,7 +49,7 @@ class Jadwal extends CI_Controller {
 			'2' => 'pisahkan',
 
 			'Dosen' => base_url() . 'jadwal/dosen',
-			'Ruangan' => base_url() . 'jadwal/ruangan',
+			'Ruangan' => base_url() . 'jadwal/jadwal_tabel_ruangan/Senin/',
 			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
 		];
 
@@ -95,7 +95,7 @@ class Jadwal extends CI_Controller {
 			'2' => 'pisahkan',
 
 			'Dosen' => base_url() . 'jadwal/dosen',
-			'Ruangan' => base_url() . 'jadwal/ruangan',
+			'Ruangan' => base_url() . 'jadwal/jadwal_tabel_ruangan/Senin/',
 			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
 		];
 
@@ -137,7 +137,7 @@ class Jadwal extends CI_Controller {
 			'2' => 'pisahkan',
 
 			'Dosen' => base_url() . 'jadwal/dosen',
-			'Ruangan' => base_url() . 'jadwal/ruangan',
+			'Ruangan' => base_url() . 'jadwal/jadwal_tabel_ruangan/Senin/',
 			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
 		];
 
@@ -204,7 +204,7 @@ class Jadwal extends CI_Controller {
 			'2' => 'pisahkan',
 
 			'Dosen' => base_url() . 'jadwal/dosen',
-			'Ruangan' => base_url() . 'jadwal/ruangan',
+			'Ruangan' => base_url() . 'jadwal/jadwal_tabel_ruangan/Senin/',
 			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
 		];
 
@@ -249,7 +249,7 @@ class Jadwal extends CI_Controller {
 			'2' => 'pisahkan',
 
 			'Dosen' => base_url() . 'jadwal/dosen',
-			'Ruangan' => base_url() . 'jadwal/ruangan',
+			'Ruangan' => base_url() . 'jadwal/jadwal_tabel_ruangan/Senin/',
 			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
 		];
 
@@ -281,7 +281,7 @@ class Jadwal extends CI_Controller {
 			'Home' => base_url(),
 			'Jadwal Hari Ini' => base_url().'jadwal/dosen/'.$dosen,
 			'Jadwal Sepekan' => base_url().'jadwal/dosen/'.$dosen . '/semua',
-			'Jadwal Tabel <span class="badge badge-danger">New</span>' => base_url().'jadwal/jadwal_tabel_dosen/'.$dosen,
+			'Jadwal Tabel' => base_url().'jadwal/jadwal_tabel_dosen/'.$dosen,
 
 			'1' => 'pisahkan',
 
@@ -293,7 +293,7 @@ class Jadwal extends CI_Controller {
 			'2' => 'pisahkan',
 
 			'Dosen' => base_url() . 'jadwal/dosen',
-			'Ruangan' => base_url() . 'jadwal/ruangan',
+			'Ruangan' => base_url() . 'jadwal/jadwal_tabel_ruangan/Senin/',
 			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
 		];
 
@@ -313,7 +313,7 @@ class Jadwal extends CI_Controller {
 	public function jadwal_tabel_dosen($enc_dosen = '')
 	{
 		$nama_dosen = base64_decode( str_replace('/', '', $enc_dosen ) );
-		$data['title'] = "Jadwal ".$nama_dosen;
+		$dosen = $nama_dosen;
 		$data['icon'] = "nezuko.gif";
 		
 		$this->db->order_by('index_hari', 'ASC');
@@ -321,97 +321,50 @@ class Jadwal extends CI_Controller {
 
 		$this->db->order_by('id', 'ASC');
 		$jam = $this->db->get('_jadwal_tabel_jam')->result_array();
+
 		
 		$data['hari'] = $hari;
 		$data['jam'] = $jam;
 		$data['nama_dosen'] = $nama_dosen;
 		$data['enc_dosen'] = $enc_dosen;
 
-		// var_dump($data['hari']);
-		// die();
+		$data['card_header'] = "Jadwal ".$nama_dosen;
+		$data['title'] = "Jadwal Tabel";
 
-		$this->load->view('_jadwal_dosen_tabel', $data);
-	}
+		// sidebar
+		$data['sidebar'] = [
+			'Home' => base_url(),
+			'Jadwal Hari Ini' => base_url().'jadwal/dosen/'.$dosen,
+			'Jadwal Sepekan' => base_url().'jadwal/dosen/'.$dosen . '/semua',
+			'Jadwal Tabel' => base_url().'jadwal/jadwal_tabel_dosen/'.$dosen,
 
-	public function jadwal_tabel_ruangan($hari = '')
-	{
-		$data['title'] = "Jadwal ".$hari;
-		$data['icon'] = "nezuko.gif";
+			'1' => 'pisahkan',
 
-		$this->db->order_by('id', 'ASC');
-		$jam = $this->db->get('_jadwal_tabel_jam')->result_array();
+			'TI' => base_url() . 'jadwal/jurusan/TI',
+			'MI' => base_url() . 'jadwal/jurusan/MI',
+			'SI' => base_url() . 'jadwal/jurusan/SI',
+			'TK' => base_url() . 'jadwal/jurusan/TK',
 
-		$data['hari0'] = $hari;
-		$data['jam'] = $jam;
-		$data['ruangan0'] = $this->_jadwalModel->get_ruangan_list();
+			'2' => 'pisahkan',
 
-		///////////////////////
-		$this->db->order_by("index_hari", "ASC");
-		$this->db->order_by("ruang", "ASC");
-		$jadwal = $this->db->get('_jadwal')->result_array();
+			'Dosen' => base_url() . 'jadwal/dosen',
+			'Ruangan' => base_url() . 'jadwal/jadwal_tabel_ruangan/Senin/',
+			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
+		];
 
-		$hari = [];
-		$index_hari = [];
-		$ruangan = [];
-
-		foreach ($jadwal as $key => $value) {
-			array_push($hari, str_replace(' ', '', $value['hari']));
-			array_push($index_hari, str_replace(' ', '', $value['index_hari']));
-			array_push($ruangan, $value['ruang']);
+		if ( !empty($enc_dosen) ) {
+			$this->load->view('templates/header', $data);
+			$this->load->view('templates/sidebar', $data);
+			$this->load->view('templates/navbar', $data);
+			$this->load->view('_jadwal_dosen_tabel', $data);
+			$this->load->view('templates/footer', $data);
+			$this->load->view('_jadwal_dosen_tabel_js', $data);
+		}else{
+			redirect( base_url() . 'jadwal/dosen_index' );
 		}
-
-		$data['ruangan'] = array_unique($ruangan);
-		$data['hari'] = [ array_unique($hari), array_unique($index_hari) ];
-		//////////////////////
-		$data['index_hari_saat_ini'] = 1;
-		$data['hari_saat_ini'] = 'Senin';
-		$data['ruangan_saat_ini'] = 'QXVsYSAx';
-
-		$this->load->view('_jadwal_ruangan_tabel', $data);
-	}
-
-	public function jadwal_aktif()
-	{
-		$this->set_view_count();
-		$data['title'] = "Jadwal Aktif";
-		$data['icon'] = "02.gif";
-
-		$this->load->view('_jadwal_aktif', $data);
-	}
-
-	public function set_dosens()
-	{
-		$jadwal = $this->db->get('_jadwal')->result_array();
-		$dosens = [];
-		$warnas = [];
-		foreach ($jadwal as $key => $value) {
-			array_push($dosens, $value['dosen']);
-		}
-
-		$dosens = array_unique($dosens);
-		foreach ($dosens as $key => $value) {
-			$warna = $this->_jadwalModel->rand_color();
-			while ( in_array($warna, $warnas) ) {
-				$warna = $this->_jadwalModel->rand_color(); // mencegah duplikat warna
-			}
-			$data = [
-				'dosen' => $value,
-				'warna' => $warna
-			];
-			$this->db->insert('_jadwal_dosen' , $data);
-			array_push( $warnas, $warna );
-		}
+		
 
 	}
-
-
-
-
-
-
-
-
-
 
 	//ruangan
 	public function ruangan_index()
@@ -442,7 +395,7 @@ class Jadwal extends CI_Controller {
 	public function ruangan($index_hari_saat_ini = '', $ruangan_saat_ini = '')
 	{
 		$this->set_view_count();
-		$data['title'] = "Jadwal Ruangan";
+		$data['title'] = "Ruangan";
 		$data['icon'] = "tamako.gif";
 
 
@@ -482,8 +435,183 @@ class Jadwal extends CI_Controller {
 
 		$data['ruangan_saat_ini'] = $ruangan_saat_ini;
 
-		$this->load->view( '_jadwal_ruangan', $data );
+
+		$data['card_header'] = "Jadwal Ruangan Hari ".$data['hari_saat_ini'];
+		$data['title'] = "Ruangan";
+
+		// sidebar
+		$data['sidebar'] = [
+			'Home' => base_url(),
+
+			'1' => 'pisahkan',
+
+			'TI' => base_url() . 'jadwal/jurusan/TI',
+			'MI' => base_url() . 'jadwal/jurusan/MI',
+			'SI' => base_url() . 'jadwal/jurusan/SI',
+			'TK' => base_url() . 'jadwal/jurusan/TK',
+
+			'2' => 'pisahkan',
+
+			'Dosen' => base_url() . 'jadwal/dosen',
+			'Ruangan' => base_url() . 'jadwal/jadwal_tabel_ruangan/Senin/',
+			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
+		];
+
+		if ( !empty($hari) ) {
+			$this->load->view('templates/header', $data);
+			$this->load->view('templates/sidebar', $data);
+			$this->load->view('templates/navbar', $data);
+			$this->load->view('_jadwal_ruangan', $data);
+			$this->load->view('templates/footer', $data);
+			$this->load->view('_jadwal_ruangan_js', $data);
+		}else{
+			redirect( base_url() );
+		}
 	}
+
+	public function jadwal_tabel_ruangan($hari0 = '')
+	{
+		$data['icon'] = "nezuko.gif";
+
+		$this->db->order_by('id', 'ASC');
+		$jam = $this->db->get('_jadwal_tabel_jam')->result_array();
+
+		$data['hari0'] = $hari0;
+		$data['jam'] = $jam;
+		$data['ruangan0'] = $this->_jadwalModel->get_ruangan_list();
+
+		///////////////////////
+		$this->db->order_by("index_hari", "ASC");
+		$this->db->order_by("ruang", "ASC");
+		$jadwal = $this->db->get('_jadwal')->result_array();
+
+		$hari = [];
+		$index_hari = [];
+		$ruangan = [];
+
+		foreach ($jadwal as $key => $value) {
+			array_push($hari, str_replace(' ', '', $value['hari']));
+			array_push($index_hari, str_replace(' ', '', $value['index_hari']));
+			array_push($ruangan, $value['ruang']);
+		}
+
+		$data['ruangan'] = array_unique($ruangan);
+		$data['hari'] = [ array_unique($hari), array_unique($index_hari) ];
+		//////////////////////
+		$data['index_hari_saat_ini'] = 1;
+		$data['hari_saat_ini'] = 'Senin';
+		$data['ruangan_saat_ini'] = 'QXVsYSAx';
+
+		$data['card_header'] = "Jadwal Ruangan Hari ".$hari0;
+		$data['title'] = "Ruangan";
+
+		// sidebar
+		$data['sidebar'] = [
+			'Home' => base_url(),
+
+			'1' => 'pisahkan',
+
+			'TI' => base_url() . 'jadwal/jurusan/TI',
+			'MI' => base_url() . 'jadwal/jurusan/MI',
+			'SI' => base_url() . 'jadwal/jurusan/SI',
+			'TK' => base_url() . 'jadwal/jurusan/TK',
+
+			'2' => 'pisahkan',
+
+			'Dosen' => base_url() . 'jadwal/dosen',
+			'Ruangan' => base_url() . 'jadwal/jadwal_tabel_ruangan/Senin/',
+			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
+		];
+
+		if ( !empty($hari) ) {
+			$this->load->view('templates/header', $data);
+			$this->load->view('templates/sidebar', $data);
+			$this->load->view('templates/navbar', $data);
+			$this->load->view('_jadwal_ruangan_tabel', $data);
+			$this->load->view('templates/footer', $data);
+			$this->load->view('_jadwal_ruangan_tabel_js', $data);
+		}else{
+			redirect( base_url() );
+		}
+	}
+
+	public function jadwal_aktif()
+	{
+		$this->set_view_count();
+		$data['title'] = "Aktif";
+		$data['icon'] = "02.gif";
+
+		$data['card_header'] = "Jadwal yang aktif saat ini.";
+
+		// sidebar
+		$data['sidebar'] = [
+			'Home' => base_url(),
+
+			'1' => 'pisahkan',
+
+			'TI' => base_url() . 'jadwal/jurusan/TI',
+			'MI' => base_url() . 'jadwal/jurusan/MI',
+			'SI' => base_url() . 'jadwal/jurusan/SI',
+			'TK' => base_url() . 'jadwal/jurusan/TK',
+
+			'2' => 'pisahkan',
+
+			'Dosen' => base_url() . 'jadwal/dosen',
+			'Ruangan' => base_url() . 'jadwal/jadwal_tabel_ruangan/Senin/',
+			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
+		];
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/sidebar', $data);
+		$this->load->view('templates/navbar', $data);
+		$this->load->view('_jadwal_aktif', $data);
+		$this->load->view('templates/footer', $data);
+		$this->load->view('_jadwal_aktif_js', $data);
+	}
+
+	public function set_dosens()
+	{
+		$jadwal = $this->db->get('_jadwal')->result_array();
+		$dosens = [];
+		$warnas = [];
+		foreach ($jadwal as $key => $value) {
+			array_push($dosens, $value['dosen']);
+		}
+
+		$dosens = array_unique($dosens);
+		foreach ($dosens as $key => $value) {
+
+			$this->db->where("dosen", $value);
+			$dosen_exist = $this->db->get("_jadwal_dosen");
+
+			if ( $dosen_exist ) {
+				$this->db->where("dosen", $value);
+				$this->db->delete("_jadwal_dosen");
+			}
+
+			$warna = $this->_jadwalModel->rand_color();
+			while ( in_array($warna, $warnas) ) {
+				$warna = $this->_jadwalModel->rand_color(); // mencegah duplikat warna
+			}
+			$data = [
+				'dosen' => $value,
+				'warna' => $warna
+			];
+			$this->db->insert('_jadwal_dosen' , $data);
+			array_push( $warnas, $warna );
+		}
+
+	}
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -44,6 +44,11 @@
         background-color: #474040;
         }
     }
+    @-webkit-keyframes glow_dua {
+        to {
+        background-color: #474040;
+        }
+    }
 
     .data_jadwal:hover{
       background-color: #666;
@@ -72,12 +77,20 @@
     }
     .tabrakan{
       background-color: #fc0324;
-      color: #fff;
+      color: #000;
     }
 
     .menyala {
         z-index: -1;
         -webkit-animation: glow 500ms infinite alternate;  
+         -webkit-transition: border 1.0s linear, box-shadow 1.0s linear;
+           -moz-transition: border 1.0s linear, box-shadow 1.0s linear;
+                transition: border 1.0s linear, box-shadow 1.0s linear;
+    }
+
+    .menyala_ruang_tabel {
+        z-index: -1;
+        -webkit-animation: glow_dua 500ms infinite alternate;  
          -webkit-transition: border 1.0s linear, box-shadow 1.0s linear;
            -moz-transition: border 1.0s linear, box-shadow 1.0s linear;
                 transition: border 1.0s linear, box-shadow 1.0s linear;

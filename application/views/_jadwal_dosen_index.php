@@ -1,5 +1,5 @@
 <div class="col-sm-12 clear-fix">
-  <div class="card" style="overflow: hidden; background-image: url(<?= base_url('assets/_jadwal/bg2.jpg') ?>);
+  <div class="card" style="background-image: url(<?= base_url('assets/_jadwal/bg2.jpg') ?>);
       background-position: top right;
       background-attachment: fixed;
       background-size: cover;">

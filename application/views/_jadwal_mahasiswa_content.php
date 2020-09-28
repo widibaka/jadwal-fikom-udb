@@ -21,7 +21,6 @@
     <?php foreach ($jadwal as $key => $value): ?>
 
       <?php 
-
         if ( $value['nyala'] == 'bg-abu-abu d-none' ) // kalau isinya diprint tapi gak ditampilkan, berarti ini jadwal yang bukan hari ini
         {
           $jum_bukan_hari_ini++;
