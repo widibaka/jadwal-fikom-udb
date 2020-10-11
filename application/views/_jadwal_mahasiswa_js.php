@@ -36,4 +36,5 @@
   }, 1000);
 
   load_data();
+
 </script>

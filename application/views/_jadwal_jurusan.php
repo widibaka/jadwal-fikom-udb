@@ -1,14 +1,11 @@
      
     <div class="col-sm-12 clear-fix">
-      <div class="card" style="background-image: url(<?= base_url('assets/_jadwal/bg2.jpg') ?>);
-          background-position: top right;
-          background-attachment: fixed;
-          background-size: cover;">
-        <div class="card-header bg-dark" style="opacity: 0.9">
+      <div class="card" >
+        <div class="card-header bg-dark">
           <h3 class="card-title"><?php if(!empty($card_header)){echo $card_header;} ?></h3>
         </div>
         <!-- /.card-header -->
-        <div class="card-body bg-dark" style="opacity: 0.9">
+        <div class="card-body bg-dark">
           <div>
 
             <div class="mb-2">

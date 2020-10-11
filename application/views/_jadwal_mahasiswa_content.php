@@ -24,12 +24,30 @@
         if ( $value['nyala'] == 'bg-abu-abu d-none' ) // kalau isinya diprint tapi gak ditampilkan, berarti ini jadwal yang bukan hari ini
         {
           $jum_bukan_hari_ini++;
+          // ukuran height progress bar kalau bukan hari ini adalah 3px
+          $value['progress_bar_height'] = "3px";
+        }
+        else{
+          $value['progress_bar_height'] = "23px";
+        }
+
+        // UNTUK PROGRESS BAR
+        if ( $value['nyala'] == 'bg-abu-abu' ) // kalau isinya ditampilin tapi abu2, berarti jadwal yang bukan hari ini
+        {
+          // kalau bukan hari ini, ukuran height progress bar adalah 3px
+          $value['progress_bar_height'] = "3px";
+          $value['progress_bar_caption'] = "none";
+        }
+        else{
+          $value['progress_bar_height'] = "23px";
+          $value['progress_bar_caption'] = "visible";
         }
 
         // kalau jadwal udah terlampaui, maka kasih abu=abu aja
         $value['jadwal_udah_lewat'] = ''; // inisialisasi
         if ( $value['selisih_dg_waktu_selesai'] < 0 ) {
           $value['jadwal_udah_lewat'] = 'bg-abu-abu';
+          
         }
 
       ?>
@@ -41,24 +59,50 @@
         <td><?php echo $value['mata_kuliah'] ?> <?php 
         
         // ketika kkurang 15 menit (gak jadi, ganti 12 jam aja) sblm mulai
-        if ( -60*60*12 < $value['selisih_dg_waktu_mulai'] && $value['selisih_dg_waktu_mulai'] < 0 ) {
-          $timer = $this->_jadwalModel->hitung_durasi( $value['selisih_dg_waktu_mulai'] );
+        if ( -60*60*12 < $value['selisih_dg_waktu_mulai'] && $value['selisih_dg_waktu_mulai'] < 0 ): 
+          $timer = $this->_jadwalModel->hitung_time_left( $value['selisih_dg_waktu_mulai'] );
 
-          echo '<br><span class="badge badge-success timer '.$value['timer'].'">';
-          echo "Mulai dalam " . $timer['jam'] . ":" . $timer['menit'];
-          echo '</span>';
+        ?>
 
-        }
+          <br>
+          <div class="progress-group" style="overflow: hidden;">
+            <div class="progress progress-xs bg-secondary" style="height: <?php echo $value['progress_bar_height'] ?>; ">
+              <div class="progress-bar" style="overflow: visible; font-size: 11pt; width: 100%; background-color: <?php echo $this->_jadwalModel->get_dosen_color($value['dosen']); ?>">
+                <span style="display: <?php echo $value['progress_bar_caption'] ?>">
+                  Akan mulai -<?php echo $timer['jam'] . ":" . $timer['menit'] ?>
+                </span>
+              </div>
+            </div>
+          </div>
+
+        <?php 
         // ketika masuk jam kuliah
-        elseif ( $value['selisih_dg_waktu_selesai'] > 0 && 0 < $value['selisih_dg_waktu_mulai'] ) {
-          $timer = $this->_jadwalModel->hitung_durasi( $value['selisih_dg_waktu_selesai'] );
+        elseif ( $value['selisih_dg_waktu_selesai'] > 0 && 0 < $value['selisih_dg_waktu_mulai'] ): 
+          $timer = $this->_jadwalModel->hitung_time_left( $value['selisih_dg_waktu_selesai'] );
+          $progress_bar = $value['selisih_dg_waktu_mulai'] / $value['durasi'] * 100;
+        ?>
 
-          echo '<br><span class="badge badge-primary timer '.$value['timer'].'">';
-          echo "Berlangsung " . $timer['jam'] . ":" . $timer['menit'];
-          echo '</span>';
-        }
+          <br>
+          <div class="progress-group" style="overflow: hidden;">
+            <div class="progress progress-xs bg-secondary" style="height: <?php echo $value['progress_bar_height'] ?>; ">
+              <div class="progress-bar" style="overflow: visible; font-size: 11pt; width: <?php echo $progress_bar ?>%; background-color: <?php echo $this->_jadwalModel->get_dosen_color($value['dosen']); ?>">
+                <span style="display: <?php echo $value['progress_bar_caption'] ?>">
+                  Berlangsung -<?php echo $timer['jam'] . ":" . $timer['menit'] ?>
+                </span>
+              </div>
+            </div>
+          </div>
+        
+        <?php else: //Untuk yang tidak berlangsung karena sudah terlewat ?>
+          <br>
+          <div class="progress-group" style="height: <?php echo $value['progress_bar_height'] ?>; overflow: hidden;">
+            <div class="progress progress-xs bg-secondary">
+              <div class="progress-bar" style="width: 100%; background-color: <?php echo $this->_jadwalModel->get_dosen_color($value['dosen']); ?>"></div>
+            </div>
+          </div>
 
-        ?></td>
+        <?php endif ?>
+        </td>
         <td><?php echo $value['ruang'] ?></td>
 
         <!-- Detail jadwal -->

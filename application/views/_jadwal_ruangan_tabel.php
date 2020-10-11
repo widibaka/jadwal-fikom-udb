@@ -1,13 +1,10 @@
 <div class="col-sm-12 clear-fix">
-  <div class="card" style="background-image: url(<?= base_url('assets/_jadwal/bg2.jpg') ?>);
-      background-position: top right;
-      background-attachment: fixed;
-      background-size: cover;">
-    <div class="card-header bg-dark" style="opacity: 0.9">
+  <div class="card" >
+    <div class="card-header bg-dark">
       <h3 class="card-title"><?php if(!empty($card_header)){echo $card_header;} ?></h3>
     </div>
     <!-- /.card-header -->
-    <div class="card-body bg-dark" style="opacity: 0.9">
+    <div class="card-body bg-dark">
 
       
       <div class="btn-group mb-4 col-sm-12 col-md-3">
@@ -125,44 +122,3 @@
   <!-- /.card -->
 </div>
 
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Detail </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div id="modal_content"></div>
-            <button type="button" class="btn btn-sm btn-secondary float-right" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-
-
-
-
-
-
-    <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
-      <a class="navbar-brand" href="<?= base_url('jadwal') ?>"><?php echo $title ?></a>
-      <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-          
-
-
-        </ul>
-      </div>
-    </nav>

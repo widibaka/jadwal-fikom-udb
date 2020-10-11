@@ -1,21 +1,18 @@
 <div class="col-sm-12 clear-fix">
-  <div class="card" style="background-image: url(<?= base_url('assets/_jadwal/bg2.jpg') ?>);
-      background-position: top right;
-      background-attachment: fixed;
-      background-size: cover;">
-    <div class="card-header bg-dark" style="opacity: 0.9">
+  <div class="card" >
+    <div class="card-header bg-dark">
       <h3 class="card-title"><?php if(!empty($card_header)){echo $card_header;} ?></h3>
     </div>
     <!-- /.card-header -->
-    <div class="card-body bg-dark" style="opacity: 0.9">
+    <div class="card-body bg-dark">
       <div class="table-responsive">
 
         <table class="table table-bordered table-dark table-striped" id="tabel-jadwal" style="border-color: #000000">
           <thead>
             <tr>
-              <th scope="col">Jam</th>
+              <th scope="col" style="padding: 0 40px 0 40px;">Jam</th>
               <?php foreach ($hari as $key => $value): ?>
-                <th scope="col"><?php echo $value['hari'] ?></th>
+                <th scope="col" style="padding: 0 40px 0 40px;"><?php echo $value['hari'] ?></th>
               <?php endforeach ?>
             </tr>
           </thead>
@@ -52,7 +49,7 @@
                         if( !empty($jadwal_tunggal[0]['tabrakan']) ){
                           echo ' tabrakan';
                         }
-                      ?>" id="td-<?php echo $jadwal_tunggal[0]['id'] ?>" onclick="show_modal(<?php echo $jadwal_tunggal[0]['id'] ?>)"  data-toggle="modal" data-target="#exampleModalLong" style="background-color: <?php if(!empty($jadwal_tunggal[0]['warna_dosen'])){echo $jadwal_tunggal[0]['warna_dosen'];} ?>">
+                      ?>" id="td-<?php echo $jadwal_tunggal[0]['id'] ?>" onclick="show_modal(<?php echo $jadwal_tunggal[0]['id'] ?>)"  data-toggle="modal" data-target="#exampleModalLong" style="border-left: solid 9px <?php if(!empty($jadwal_tunggal[0]['warna_dosen'])){echo $jadwal_tunggal[0]['warna_dosen'];} ?>">
                       <span class="inisial font-weight-bold"><?php 
                           foreach ($jadwal_tunggal as $key => $value) {
                             echo $value['inisial'] . '<br>';
@@ -95,36 +92,14 @@
 
 
         </table>
-
-        <div class="col-sm-6 col-md-3 text-center">
-          <p class="tetap1">Jadwal Tetap</p>
-          <p class="tambahan1">Jadwal Tambahan</p>
-          <p class="tabrakan">Tabrakan</p>
-        </div>
-
-
+      </div>
+      <div class="col-sm-6 col-md-3 mt-3 text-center">
+        <p class="tetap1">Jadwal Tetap</p>
+        <p class="tambahan1">Jadwal Tambahan</p>
+        <p class="tabrakan">Tabrakan</p>
       </div>
     </div>
     <!-- /.card-body -->
   </div>
   <!-- /.card -->
 </div>
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Detail </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div id="modal_content"></div>
-            <button type="button" class="btn btn-sm btn-secondary float-right" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>

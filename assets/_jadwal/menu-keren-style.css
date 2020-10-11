@@ -562,26 +562,26 @@ textarea, label {
 @-webkit-keyframes focus-in-contract {
   0% {
     letter-spacing: 1em;
-    -webkit-filter: blur(12px);
-            filter: blur(12px);
+    /*-webkit-filter: blur(12px);
+            filter: blur(12px);*/
     opacity: 0;
   }
   100% {
-    -webkit-filter: blur(0px);
-            filter: blur(0px);
+    /*-webkit-filter: blur(0px);
+            filter: blur(0px);*/
     opacity: 1;
   }
 }
 @keyframes focus-in-contract {
   0% {
     letter-spacing: 1em;
-    -webkit-filter: blur(12px);
-            filter: blur(12px);
+    /*-webkit-filter: blur(12px);
+            filter: blur(12px);*/
     opacity: 0;
   }
   100% {
-    -webkit-filter: blur(0px);
-            filter: blur(0px);
+    /*-webkit-filter: blur(0px);
+            filter: blur(0px);*/
     opacity: 1;
   }
 }

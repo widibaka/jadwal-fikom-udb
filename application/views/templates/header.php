@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html style="background-image: ;
+      background-position: center;
+      background-attachment: fixed;
+      background-size: cover;">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,11 +28,11 @@
 
 
   <!-- Menu Keren -->
-  <link rel="stylesheet" href="<?= base_url() ?>assets/_jadwal/menu-keren-style.css">
+  <link rel="stylesheet" href="<?= base_url() ?>assets/_jadwal/menu-keren-style.css?v2">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> -->
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="<?= base_url() ?>assets/dist/css/adminlte.min.css">
   <!-- SweetAlert2 -->
@@ -81,7 +84,6 @@
     }
 
     .menyala {
-        z-index: -1;
         -webkit-animation: glow 500ms infinite alternate;  
          -webkit-transition: border 1.0s linear, box-shadow 1.0s linear;
            -moz-transition: border 1.0s linear, box-shadow 1.0s linear;
@@ -89,7 +91,6 @@
     }
 
     .menyala_ruang_tabel {
-        z-index: -1;
         -webkit-animation: glow_dua 500ms infinite alternate;  
          -webkit-transition: border 1.0s linear, box-shadow 1.0s linear;
            -moz-transition: border 1.0s linear, box-shadow 1.0s linear;
@@ -106,18 +107,20 @@
         color: #919191;
     }
     .bg-cerah{
-
         color: #fff;
     }
     .loader{
         padding-top: 2px;
         padding-bottom: 5px;
+        height: 60px;
+        opacity: 0.6;
     }
+
 
   </style>
 
 </head>
-<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed sidebar-closed sidebar-collapse" style="background-color: #282c31">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed sidebar-closed sidebar-collapse" style="opacity: 0.94">
 <!-- Site wrapper -->
-<div class="wrapper">
+<div class="wrapper" style="background-color: #282c31;">
 

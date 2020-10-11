@@ -12,12 +12,16 @@ class Jadwal extends CI_Controller {
 
 	public function set_view_count()
 	{
-		$angka = file_get_contents("view.txt");
-		$myfile = fopen("view.txt", "w") or die("Unable to open file!");
-		$angka = $angka+1;
+		// kkalau ada parameter no_count maka jangan dihitung
+		if ( empty($_GET['no_count']) ) {
+			$angka = file_get_contents("view.txt");
+			$myfile = fopen("view.txt", "w") or die("Unable to open file!");
+			$angka = $angka+1;
 
-		fwrite($myfile, $angka);
-		fclose($myfile);
+			fwrite($myfile, $angka);
+			fclose($myfile);
+		}
+		
 	}
 
 	////////////////////////////////////////////////////////////
@@ -51,6 +55,10 @@ class Jadwal extends CI_Controller {
 			'Dosen' => base_url() . 'jadwal/dosen',
 			'Ruangan' => base_url() . 'jadwal/jadwal_tabel_ruangan/Senin/',
 			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
+
+			'3' => 'pisahkan',
+
+			'Background' => base_url() . 'jadwal/background',
 		];
 
 		foreach ($data['jurusan'] as $key => $value) {
@@ -97,6 +105,10 @@ class Jadwal extends CI_Controller {
 			'Dosen' => base_url() . 'jadwal/dosen',
 			'Ruangan' => base_url() . 'jadwal/jadwal_tabel_ruangan/Senin/',
 			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
+
+			'3' => 'pisahkan',
+
+			'Background' => base_url() . 'jadwal/background',
 		];
 
 		$this->load->view('templates/header', $data);
@@ -139,6 +151,10 @@ class Jadwal extends CI_Controller {
 			'Dosen' => base_url() . 'jadwal/dosen',
 			'Ruangan' => base_url() . 'jadwal/jadwal_tabel_ruangan/Senin/',
 			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
+
+			'3' => 'pisahkan',
+
+			'Background' => base_url() . 'jadwal/background',
 		];
 
 		$this->load->view('templates/header', $data);
@@ -206,6 +222,10 @@ class Jadwal extends CI_Controller {
 			'Dosen' => base_url() . 'jadwal/dosen',
 			'Ruangan' => base_url() . 'jadwal/jadwal_tabel_ruangan/Senin/',
 			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
+
+			'3' => 'pisahkan',
+
+			'Background' => base_url() . 'jadwal/background',
 		];
 
 
@@ -251,6 +271,10 @@ class Jadwal extends CI_Controller {
 			'Dosen' => base_url() . 'jadwal/dosen',
 			'Ruangan' => base_url() . 'jadwal/jadwal_tabel_ruangan/Senin/',
 			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
+
+			'3' => 'pisahkan',
+
+			'Background' => base_url() . 'jadwal/background',
 		];
 
 		$this->load->view('templates/header', $data);
@@ -295,6 +319,10 @@ class Jadwal extends CI_Controller {
 			'Dosen' => base_url() . 'jadwal/dosen',
 			'Ruangan' => base_url() . 'jadwal/jadwal_tabel_ruangan/Senin/',
 			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
+
+			'3' => 'pisahkan',
+
+			'Background' => base_url() . 'jadwal/background',
 		];
 
 		if ( !empty($dosen) ) {
@@ -334,9 +362,9 @@ class Jadwal extends CI_Controller {
 		// sidebar
 		$data['sidebar'] = [
 			'Home' => base_url(),
-			'Jadwal Hari Ini' => base_url().'jadwal/dosen/'.$dosen,
-			'Jadwal Sepekan' => base_url().'jadwal/dosen/'.$dosen . '/semua',
-			'Jadwal Tabel' => base_url().'jadwal/jadwal_tabel_dosen/'.$dosen,
+			'Jadwal Hari Ini' => base_url().'jadwal/dosen/'.$enc_dosen,
+			'Jadwal Sepekan' => base_url().'jadwal/dosen/'.$enc_dosen . '/semua',
+			'Jadwal Tabel' => base_url().'jadwal/jadwal_tabel_dosen/'.$enc_dosen,
 
 			'1' => 'pisahkan',
 
@@ -350,6 +378,10 @@ class Jadwal extends CI_Controller {
 			'Dosen' => base_url() . 'jadwal/dosen',
 			'Ruangan' => base_url() . 'jadwal/jadwal_tabel_ruangan/Senin/',
 			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
+
+			'3' => 'pisahkan',
+
+			'Background' => base_url() . 'jadwal/background',
 		];
 
 		if ( !empty($enc_dosen) ) {
@@ -455,6 +487,10 @@ class Jadwal extends CI_Controller {
 			'Dosen' => base_url() . 'jadwal/dosen',
 			'Ruangan' => base_url() . 'jadwal/jadwal_tabel_ruangan/Senin/',
 			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
+
+			'3' => 'pisahkan',
+
+			'Background' => base_url() . 'jadwal/background',
 		];
 
 		if ( !empty($hari) ) {
@@ -521,6 +557,10 @@ class Jadwal extends CI_Controller {
 			'Dosen' => base_url() . 'jadwal/dosen',
 			'Ruangan' => base_url() . 'jadwal/jadwal_tabel_ruangan/Senin/',
 			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
+
+			'3' => 'pisahkan',
+
+			'Background' => base_url() . 'jadwal/background',
 		];
 
 		if ( !empty($hari) ) {
@@ -559,6 +599,10 @@ class Jadwal extends CI_Controller {
 			'Dosen' => base_url() . 'jadwal/dosen',
 			'Ruangan' => base_url() . 'jadwal/jadwal_tabel_ruangan/Senin/',
 			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
+
+			'3' => 'pisahkan',
+
+			'Background' => base_url() . 'jadwal/background',
 		];
 
 		$this->load->view('templates/header', $data);
@@ -755,5 +799,39 @@ class Jadwal extends CI_Controller {
 
 
 
+
+	public function background()
+	{
+		$this->set_view_count();
+
+		$data['title'] = "Background";
+		$data['card_header'] = "Ubah Background";
+
+		// sidebar
+		$data['sidebar'] = [
+			'Home' => base_url(),
+			'TI' => base_url() . 'jadwal/jurusan/TI',
+			'MI' => base_url() . 'jadwal/jurusan/MI',
+			'SI' => base_url() . 'jadwal/jurusan/SI',
+			'TK' => base_url() . 'jadwal/jurusan/TK',
+			
+			'2' => 'pisahkan',
+
+			'Dosen' => base_url() . 'jadwal/dosen',
+			'Ruangan' => base_url() . 'jadwal/jadwal_tabel_ruangan/Senin/',
+			'Aktif' => base_url() . 'jadwal/jadwal_aktif',
+
+			'3' => 'pisahkan',
+
+			'Background' => base_url() . 'jadwal/background',
+		];
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/sidebar', $data);
+		$this->load->view('templates/navbar', $data);
+		$this->load->view('_jadwal_background', $data);
+		$this->load->view('templates/footer', $data);
+		$this->load->view('_jadwal_background_js', $data);
+	}
 	
 }

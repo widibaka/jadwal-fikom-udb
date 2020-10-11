@@ -44,7 +44,7 @@
         
         // ketika kkurang 15 menit (gak jadi, ganti 12 jam aja) sblm mulai
         if ( -60*60*12 < $value['selisih_dg_waktu_mulai'] && $value['selisih_dg_waktu_mulai'] < 0 ) {
-          $timer = $this->_jadwalModel->hitung_durasi( $value['selisih_dg_waktu_mulai'] );
+          $timer = $this->_jadwalModel->hitung_time_left( $value['selisih_dg_waktu_mulai'] );
 
           echo '<br><span class="badge badge-success timer '.$value['timer'].'">';
           echo "Mulai dalam " . $timer['jam'] . ":" . $timer['menit'];
@@ -53,7 +53,7 @@
         }
         // ketika masuk jam kuliah
         elseif ( $value['selisih_dg_waktu_selesai'] > 0 && 0 < $value['selisih_dg_waktu_mulai'] ) {
-          $timer = $this->_jadwalModel->hitung_durasi( $value['selisih_dg_waktu_selesai'] );
+          $timer = $this->_jadwalModel->hitung_time_left( $value['selisih_dg_waktu_selesai'] );
 
           echo '<br><span class="badge badge-primary timer '.$value['timer'].'">';
           echo "Berlangsung " . $timer['jam'] . ":" . $timer['menit'];

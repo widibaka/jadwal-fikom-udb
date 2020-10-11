@@ -3,7 +3,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="<?= base_url() ?>" class="brand-link">
-        <img src="<?= base_url() ?>assets/_jadwal/logo.png"
+        <img src="<?= base_url() ?>assets/_jadwal/logo.png?v2"
              alt="Koreksoft Logo"
              class="brand-image"
              style="opacity: .8;">
@@ -51,7 +51,7 @@
 
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper" style="background-color: #282c31">
+  <div class="content-wrapper" style="background-color: #282c31;">
 
     <!-- Main content -->
     <section class="content">

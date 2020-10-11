@@ -11,7 +11,7 @@ class _jadwalModel extends CI_Model
 		# code...
 	}
 
-	public function hitung_durasi($selisih_dg_waktu_mulai)
+	public function hitung_time_left($selisih_dg_waktu_mulai)
 	{
 		$selisih_dg_waktu_mulai = str_replace('-', '', $selisih_dg_waktu_mulai);
 		$jam = sprintf('%02d',  floor($selisih_dg_waktu_mulai / (60*60) )   );
@@ -27,31 +27,33 @@ class _jadwalModel extends CI_Model
 		];
 	}
 
-	public function hitung_waktu_mulai($selisih_dg_waktu_selesai)
-	{
-		$selisih_dg_waktu_selesai = str_replace('-', '', $selisih_dg_waktu_selesai);
-		$jam = sprintf('%02d',  floor($selisih_dg_waktu_selesai / (60*60) )   );
-		$sisa_setelah_jam = $selisih_dg_waktu_selesai % (60*60);
-		$menit = sprintf('%02d',  floor($sisa_setelah_jam / 60)   );
-		$sisa_setelah_menit = $selisih_dg_waktu_selesai % 60;
-		$detik = sprintf('%02d',  $selisih_dg_waktu_selesai % 60   );
+	// public function hitung_waktu_mulai($selisih_dg_waktu_selesai)
+	// {
+	// 	$selisih_dg_waktu_selesai = str_replace('-', '', $selisih_dg_waktu_selesai);
+	// 	$jam = sprintf('%02d',  floor($selisih_dg_waktu_selesai / (60*60) )   );
+	// 	$sisa_setelah_jam = $selisih_dg_waktu_selesai % (60*60);
+	// 	$menit = sprintf('%02d',  floor($sisa_setelah_jam / 60)   );
+	// 	$sisa_setelah_menit = $selisih_dg_waktu_selesai % 60;
+	// 	$detik = sprintf('%02d',  $selisih_dg_waktu_selesai % 60   );
 		
-		return $data = [
-			'jam' => $jam,
-			'menit' => $menit,
-			'detik' => $detik,
-		];
-	}
+	// 	return $data = [
+	// 		'jam' => $jam,
+	// 		'menit' => $menit,
+	// 		'detik' => $detik,
+	// 	];
+	// }
 
 	public function proses_jadwal($jadwal, $mati, $timer_mati)
 	{
 		for ($i=0; $i < count($jadwal); $i++) { 			
 			$selisih_dg_waktu_mulai = time() - strtotime($jadwal[$i]['jam_mulai']);
 			$selisih_dg_waktu_selesai = strtotime($jadwal[$i]['jam_selesai']) - time();
+			$durasi = strtotime($jadwal[$i]['jam_selesai']) - strtotime($jadwal[$i]['jam_mulai']);
 
 			// masukin ke array
 			$jadwal[$i]['selisih_dg_waktu_mulai'] = $selisih_dg_waktu_mulai;
 			$jadwal[$i]['selisih_dg_waktu_selesai'] = $selisih_dg_waktu_selesai;
+			$jadwal[$i]['durasi'] = $durasi;
 			
 			// $durasi = strtotime($jadwal[$i]['jam_selesai']) - strtotime($jadwal[$i]['jam_mulai']);
 			$jadwal[$i]['nyala'] = '';
